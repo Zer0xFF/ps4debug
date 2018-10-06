@@ -5,9 +5,13 @@
 #ifndef _PROTOCOL_H
 #define _PROTOCOL_H
 
+#ifdef __PS4__
 #include <ps4.h>
 #include "errno.h"
-#include "kdbg.h"
+#else
+#include <stdint.h>
+#endif
+#include "kdbg_struct.h"
 
 #define PACKET_VERSION          "1.2"
 #define PACKET_MAGIC            0xFFAABBCC
@@ -323,6 +327,7 @@ struct debug_context {
     } watchdata;
 };
 
+#ifdef __PS4__
 struct server_client {
     int id;
     int fd;
@@ -330,5 +335,6 @@ struct server_client {
     struct sockaddr_in client;
     struct debug_context dbgctx;
 };
+#endif
 
 #endif
